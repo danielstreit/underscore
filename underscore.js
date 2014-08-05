@@ -97,15 +97,14 @@
   _.each = _.forEach = function(obj, iteratee, context) {
     if (obj == null) return obj;
     iteratee = createCallback(iteratee, context);
-    var i, length = obj.length;
+    var length = obj.length;
     if (length === +length) {
-      for (i = 0; i < length; i++) {
+      for (var i = 0; i < length; i++) {
         iteratee(obj[i], i, obj);
       }
     } else {
-      var keys = _.keys(obj);
-      for (i = 0, length = keys.length; i < length; i++) {
-        iteratee(obj[keys[i]], keys[i], obj);
+      for (var key in obj) {
+        obj.hasOwnProperty(key) && iteratee(obj[key], key, obj);
       }
     }
     return obj;
