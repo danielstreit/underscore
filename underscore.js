@@ -20,7 +20,6 @@
   // Create quick reference variables for speed access to core prototypes.
   var
     push             = ArrayProto.push,
-    slice            = ArrayProto.slice,
     concat           = ArrayProto.concat,
     toString         = ObjProto.toString,
     hasOwnProperty   = ObjProto.hasOwnProperty;
@@ -76,6 +75,23 @@
     return function() {
       return func.apply(context, arguments);
     };
+  };
+
+  var slice = function(array, start, end) {
+    var len = array.length;
+    if (end === 0 || end < -len) return [];
+    else if (!end || end > len) end = len;
+    else if (end < 0) end = len + end;
+    if (!start) start = 0;
+    else if (start < -len) start = 0;
+    else if (start < 0) start = len + start;
+    else if (start > len) start = len;
+    len = end - start;
+    var result = Array(len);
+    for (var i = 0; i < len; i++) {
+      result[i] = array[start + i];
+    }
+    return result;
   };
 
   // A mostly-internal function to generate callbacks that can be applied
