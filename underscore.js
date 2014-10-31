@@ -230,7 +230,7 @@
   _.contains = _.include = function(obj, target) {
     if (obj == null) return false;
     if (obj.length !== +obj.length) obj = _.values(obj);
-    return _.indexOf(obj, target) >= 0;
+    return !!~_.indexOf(obj, target);
   };
 
   // Invoke a method (with arguments) on every item in a collection.
